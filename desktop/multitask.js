@@ -8,16 +8,19 @@ function sameOrigin(url) {
    && a.protocol == window.location.protocol
 }
 
-function processMsg([ms, sender, ...msg]) {
-  
+function processMsg(pid, [ms, ...msg]) {
+  if (msg[0] == "alert") {
+    alert(msg[1]);
+  }
 }
 
 const procs = {0: { // process 0 is multitask
   name: "multitask",
   dispName: "Multitask",
-  worker: {postMessage: processMsg}
+  worker: {postMessage: processMsg},
+  index: 0
 }};
-let topPID = 0;
+let nextPid = 1;
 
 function spawn(url) {
   let worker;
@@ -28,7 +31,11 @@ function spawn(url) {
   }
   const name = url.replace(/^(?:.*\/)?(.+)\..*?$/g, "$1");
   const proc = {
-    worker, name, dispName: name
+    worker, name, dispName: name, index: nextPid
   };
-  procs[++topPID] = proc;
+  procs[nextPid++] = proc;
+
+  worker.addEventListener("message", function(msg) {
+    processMsg(proc.index, msg);
+  });
 }
