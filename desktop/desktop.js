@@ -1,5 +1,5 @@
 function main() {
-  spawn("display");
+  spawn("display.js");
 }
 
 addEventListener("load", main);
