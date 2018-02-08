@@ -7,7 +7,7 @@ function *run() {
     if (!ready) {
       if (e.message.type == init) {
         ready = true;
-        setTimeout(10000, function() {
+        setTimeout(4000, function() {
           postMessage({type: "alert", text: "Hello, world!"});
         });
       }
