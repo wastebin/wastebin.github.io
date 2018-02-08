@@ -4,7 +4,9 @@ function *run(compositor, program) {
     let [which, e] = yield;
     switch (which) {
       "compositor":
-        break;
+        if (e.message.type == "alert") {
+          alert(e.message.text);
+        }
       "program":
         break;
     }
@@ -25,6 +27,8 @@ function main() {
   program.addEventListener("message", function(e) {
     runner.next("program", e);
   });
+
+  compositor.postMessage({type: "init"});
 }
 
 addEventListener("load", main);
