@@ -1,13 +1,28 @@
 function *run(compositor, program) {
+  let compositorReady = false;
+  let programReady = false;
+
   let quit = false;
   while (!quit) {
     let [which, e] = yield;
     switch (which) {
       "compositor":
-        if (e.message.type == "alert") {
-          alert(e.message.text);
+        switch (e.message.type) {
+          case "ready":
+            compositorReady = true;
+            program.postMessage({type: "init"});
+            break;
+          case "alert":
+            alert(e.message.text);
+            break;
         }
+        break;
       "program":
+        switch (e.message.type) {
+          case "ready":
+            programReady = true;
+            break;
+        }
         break;
     }
   }
