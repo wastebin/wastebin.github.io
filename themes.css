@@ -1,0 +1,9 @@
+/*
+  color system ideas:
+  * fill-a, fill-b, accent-a, accent-b
+  * dualistic (scale between two contrasting colors, possibly a, b, c, d, e?)
+    an advantage of this is that themes that are light-dark can simply be inverted for light/dark modes
+  * materialistic (primary/secondary + variant, bg, surface, error, primary text, secondary text, bg text, surface text, error text; named after google’s material design)
+*/
+
+::root {}
